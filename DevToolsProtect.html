@@ -32,127 +32,7 @@
       object-fit: cover;
       z-index: -1;
     }
-    
-.all-buttons {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 1rem;
-  z-index: 2;
-}
-
-.button-row {
-  display: flex;
-  justify-content: center;
-  margin: 0.5rem 0;
-}
-
-.btn-telegram,
-.btn-soundcloud,
-.btn-ytmusic,
-.btn-spotify,
-.btn-yamusic, 
-.btn-apple {
-  width: 140px;
-  justify-content: center;
-  padding: 0.6rem 1.2rem;
-  margin: 0.5rem;
-  border: none;
-  border-radius: 10px;
-  font-size: 1rem;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  transition: background-color 0.3s, transform 0.2s;
-}
-
-.btn-telegram {
-  background-color: transparent;
-  color: white;
-}
-.btn-telegram:hover {
-  background-color: #0088cc;
-}
-
-.btn-soundcloud {
-  background-color: transparent;
-  color: white;
-}
-.btn-soundcloud:hover {
-  background-color: #ff7700;
-}
-
-.btn-ytmusic {
-  background-color: transparent;
-  color: white;
-}
-.btn-ytmusic:hover {
-  background-color: #ff0000;
-}
-
-.btn-spotify {
-  background-color: transparent;
-  color: white;
-}
-.btn-spotify:hover {
-  background-color: #1ed760;
-}
-
-.btn-yamusic {
-	background-color: transparent;
-	color: white;
-}
-.btn-yamusic:hover {
-	background-color: #fa0202;
-}
-
-.btn-apple {
-	background-color: transparent;
-	color: white;
-}
-.btn-apple:hover {
-	background-color: #f94c57;
-}
-
-@media (max-width: 480px) {
-  .button-row {
-    flex-wrap: wrap;
-  }
-  .button-row button {
-    flex: 1 1 45%;
-    max-width: none;
-    margin-bottom: 0.5rem;
-  }
-}
-
-    .overlay {
-      position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
-      backdrop-filter: blur(0px);
-      z-index: 0;
-    }
-
-    .content {
-      background: rgba(40, 40, 40, 0.8);
-      padding: 2rem;
-      border-radius: 20px;
-      text-align: center;
-      z-index: 1;
-      max-width: 600px;
-      width: 100%;
-      box-sizing: border-box;
-    }
-
-    h1 {
-      font-size: 2.5rem;
-      margin-bottom: 1rem;
-    }
-
-    p {
-      font-size: 1.2rem;
-    }
-    
+        
     .footer-text {
   position: fixed;
   bottom: 10px;
@@ -180,96 +60,65 @@
 
   <!-- Backgaround video -->
   <video id="bgVideo" autoplay muted loop playsinline>
-    <source src="bg2.mp4" type="video/mp4" />
+    <source src="warning.mp4" type="video/mp4" />
     Your browser did not support this video.
   </video>
+  
+<script>
+  const video = document.getElementById('bgVideo');
 
-  <!-- Blur over video -->
-  <div class="overlay"></div>
+  // Autostart without sound
+  video.muted = true;
+  video.play();
+
+  // click to start 
+  window.addEventListener('click', () => {
+    video.muted = false;
+    video.volume = 1.0;
+    video.play().catch(err => {
+      console.warn("Can`t start with sound:", err);
+    });
+  });
+</script>
   
   <!--Text in right bottom corner--> 
-  <div class="footer-text">
+ <div class="footer-text">
   Created and designed by @bronskyi
-  </div>
-
-  <!-- Text -->
-  <div class="content">
-    <h1>KRISTIEE – Dirty</h1>
-    <p>Tap to play</p>
-    <P>Клацніть щоб відтворити</P>
-    <P>Нажмите для воспроизведения</P>
-    <div class="all-buttons">
-  <div class="button-row">
-    <button class="btn-telegram" onclick="window.location.href='https://t.me/kristiee2025'"><i class="fa-brands fa-telegram"></i> Telegram</button>
-    <button class="btn-soundcloud" onclick="window.location.href='https://soundcloud.com/artemij-ermoshin/dirty-wav'"><i class="fab fa-soundcloud"></i> SoundCloud</button>
-    <button class="btn-yamusic" onclick="window.location.href='https://music.yandex.ru/album/36805749?utm_source=bandlink&utm_medium=KRISTIEE&utm_campaign=Dirty&utm_term=0i3zw'"><i class="fa-brands fa-yandex"></i> Yandex</button>
-  </div>
-  <div class="button-row">
-    <button class="btn-ytmusic" onclick="window.location.href='https://music.youtube.com/playlist?list=OLAK5uy_l_J52MedP3gvXeby6nSwEKgBsME9N7wHE'"><i class="fa-brands fa-youtube"></i> YT Music</button>
-    <button class="btn-spotify" onclick="window.location.href='https://open.spotify.com/album/2Ufmz6DSeQdK9cVAIfcwEb'"><i class="fa-brands fa-spotify"></i> Spotify</button>
-    <button class="btn-apple" onclick="window.location.href='https://music.apple.com/ru/album/dirty-single/1816924714'"><i class="fa-brands fa-apple"></i> Music</button>
-    
-  </div>
-</div>
-
-
-  <!-- Audio -->
-  <audio id="backgroundAudio" src="dirty.mp3" preload="auto" loop></audio>
-
+  </div> 
+  
   <script>
-    const audio = document.getElementById('backgroundAudio');
-
-    function tryPlayAudio() {
-      audio.play().catch(() => {
-        console.warn("Autoplay blocked. Tap on page.");
-      });
-    }
-
-    document.addEventListener("visibilitychange", () => {
-      if (document.hidden) {
-        audio.pause();
-      } else {
-        tryPlayAudio();
-      }
-    });
-
-    window.addEventListener('load', tryPlayAudio);
-    window.addEventListener('click', () => {
-      if (audio.paused) {
-        tryPlayAudio();
-      }
-    });
-    
-        // DevTools redirect protection
-    (function () {
-      let redirected = false;
-      const redirectUrl = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
-
+    // Function to check if DevTools open
+    function detectDevTools(callback) {
+      let threshold = 160; // пикселей
       const element = new Image();
       Object.defineProperty(element, 'id', {
         get: function () {
-          if (!redirected) {
-            redirected = true;
-            window.location.href = redirectUrl;
-          }
+          callback(); // if console active
         }
       });
+      console.log(element); // call getter 
+    }
 
-      console.log('%c', element);
-
-      setInterval(() => {
-        const threshold = 160;
-        if (
-          window.outerWidth - window.innerWidth > threshold ||
-          window.outerHeight - window.innerHeight > threshold
-        ) {
-          if (!redirected) {
-            redirected = true;
-            window.location.href = redirectUrl;
-          }
+    // example with window size change
+    let devtoolsOpen = false;
+    setInterval(() => {
+      if (
+        window.outerWidth - window.innerWidth > 160 ||
+        window.outerHeight - window.innerHeight > 160
+      ) {
+        if (!devtoolsOpen) {
+          devtoolsOpen = true;
+          window.location.href = "https://google.com"; // URL to redirect
         }
-      }, 1000);
-    })(); 
+      } else {
+        devtoolsOpen = false;
+      }
+    }, 500);
+
+    // Alternative activate with console.log
+    detectDevTools(() => {
+      window.location.href = "https://google.com";
+    });
   </script>
 </body>
 </html>
