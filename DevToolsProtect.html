@@ -85,40 +85,5 @@
  <div class="footer-text">
   Created and designed by @bronskyi
   </div> 
-  
-  <script>
-    // Function to check if DevTools open
-    function detectDevTools(callback) {
-      let threshold = 160; // пикселей
-      const element = new Image();
-      Object.defineProperty(element, 'id', {
-        get: function () {
-          callback(); // if console active
-        }
-      });
-      console.log(element); // call getter 
-    }
-
-    // example with window size change
-    let devtoolsOpen = false;
-    setInterval(() => {
-      if (
-        window.outerWidth - window.innerWidth > 160 ||
-        window.outerHeight - window.innerHeight > 160
-      ) {
-        if (!devtoolsOpen) {
-          devtoolsOpen = true;
-          window.location.href = "https://google.com"; // URL to redirect
-        }
-      } else {
-        devtoolsOpen = false;
-      }
-    }, 500);
-
-    // Alternative activate with console.log
-    detectDevTools(() => {
-      window.location.href = "https://google.com";
-    });
-  </script>
 </body>
 </html>
